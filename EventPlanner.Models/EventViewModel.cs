@@ -1,13 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace EventPlanner.Entities
+namespace EventPlanner.Models
 {
-    [Table("Events")]
-    public class Event
+    public class EventViewModel
     {
         public int EventId { get; set; }
-        [MaxLength(50)]
         public string? EventName { get; set; }
         [MaxLength(200)]
         public string? EventDescription { get; set; }
