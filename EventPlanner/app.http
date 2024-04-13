@@ -1,0 +1,7 @@
+@MinimalApiHost = https://localhost:7276
+
+###
+# return all event records
+GET {{MinimalApiHost}}/api/events
+
+###

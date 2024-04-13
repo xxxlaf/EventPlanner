@@ -5,7 +5,6 @@ using EventPlanner.Database;
 using Microsoft.EntityFrameworkCore;
 using EventPlanner.Models;
 using EventPlanner.Entities;
-using System.ComponentModel;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,7 +16,7 @@ builder.Services.AddFluentUIComponents();
 builder.Services.AddDbContext<EventPlannerDbContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("sqlite");
-    options.UseSqlite();
+    options.UseSqlite(connectionString);
 });
 
 var app = builder.Build();
