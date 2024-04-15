@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace EventPlanner.Models
 {
-    internal class Event
+    public class Event
     {
+        public int EventId { get; set; }
+        public int VenueId { get; set; }
+        public int OrganizerId { get; set; }
+        public string? EventName { get; set; }
+        public DateTime? EventDate { get; set; }
     }
 }

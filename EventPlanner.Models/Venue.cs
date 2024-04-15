@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Data.SqlTypes;
 
 namespace EventPlanner.Models
 {
-    internal class Venue
+    public class Venue
     {
+        public int VenueId { get; set; }
+        public string? VenueName { get; set; }
+        public string? Location { get; set; }
+        public int Capacity { get; set; }
+        public int RentalCost { get; set; }
     }
 }

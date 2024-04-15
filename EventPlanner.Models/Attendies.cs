@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EventPlanner.Models
+﻿namespace EventPlanner.Models
 {
-    internal class Attendies
+    public class Attendee
     {
+        public int AttendeeId { get; set; }
+        public int EventId { get; set; }
+        public string? Name { get; set; }
+        public string? Email { get; set; }
+        public string? Phone { get; set; }
     }
 }
