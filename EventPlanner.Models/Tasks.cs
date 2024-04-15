@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace EventPlanner.Models
+﻿namespace EventPlanner.Models
 {
-    internal class Tasks
+    public class Tasks
     {
+        public int TaskId { get; set; }
+        public int EventId { get; set; }
+        public string? Description { get; set; }
+        public DateTime Deadline { get; set; }
+        public bool Status { get; set; }
     }
 }
