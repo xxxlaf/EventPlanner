@@ -88,7 +88,7 @@ app.MapGet("/api/events/{id}", async (EventPlannerDbContext eventPlannerDbContex
 
 app.MapPost("/api/events", async (EventPlannerDbContext eventPlannerDbContext, EventViewModel eventViewModel) =>
 {
-    Event objEvent = new()
+    EventPlanner.Entities.Event objEvent = new()
     {
         EventId = eventViewModel.EventId,
         EventName = eventViewModel.EventName,
