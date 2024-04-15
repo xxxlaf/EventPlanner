@@ -1,0 +1,30 @@
+﻿
+@page "/update"
+
+<h3>update</h3>
+
+<p>Update your Event</p>
+
+<FluentUIStack VerticalAlign="FluentUIVerticalAlignment.Start">
+    <FluentUILabel Text="Event Name" Required="true" />
+    <FluentUITextField />
+
+    <FluentUILabel Text="Event Description" />
+    <FluentUITextField />
+
+    <FluentUILabel Text="Location" />
+    <FluentUITextField />
+
+    <FluentUILabel Text="Start Date" />
+    <FluentUIDatePicker />
+
+    <FluentUILabel Text="End Date" />
+    <FluentUIDatePicker />
+
+    <FluentUIPrimaryButton Text="Update Event" />
+</FluentUIStack>
+
+
+@code {
+
+}
