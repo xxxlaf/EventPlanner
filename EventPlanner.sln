@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventPlanner", "EventPlanne
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventPlanner.Client", "EventPlanner.Client\EventPlanner.Client.csproj", "{FCE3C98E-3ADC-46FA-94F3-9B4B8BAD5389}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventPlanner.Models", "EventPlanner.Models\EventPlanner.Models.csproj", "{5C32DBA9-514D-4998-B774-E9E5F0B8BF01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventPlanner.Models", "EventPlanner.Models\EventPlanner.Models.csproj", "{5C32DBA9-514D-4998-B774-E9E5F0B8BF01}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
