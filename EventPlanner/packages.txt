@@ -1,0 +1,6 @@
+Install-Package Microsoft.EntityFrameworkCore
+Install-Package Microsoft.EntityFrameworkCore.SqlServer
+Install-Package Microsoft.EntityFrameworkCore.Relational
+Install-Package Microsoft.EntityFrameworkCore.Tools
+install-package Microsoft.AspNetCore.Authentication.JwtBearer
+install-package Newtonsoft.Json
