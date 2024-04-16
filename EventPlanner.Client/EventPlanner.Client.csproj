@@ -14,8 +14,4 @@
 	<PackageReference Include="Microsoft.FluentUI.AspNetCore.Components.Icons" Version="4.*-* " />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\EventPlanner.Models\EventPlanner.Models.csproj" />
-  </ItemGroup>
-
 </Project>
