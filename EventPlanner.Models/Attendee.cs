@@ -1,5 +1,8 @@
-﻿namespace EventPlanner.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace EventPlanner.Models
 {
+    [Table("Attendees")]
     public class Attendee
     {
         public int AttendeeId { get; set; }

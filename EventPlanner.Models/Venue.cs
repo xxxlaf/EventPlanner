@@ -1,7 +1,8 @@
-﻿using System.Data.SqlTypes;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EventPlanner.Models
 {
+    [Table("Venue")]
     public class Venue
     {
         public int VenueId { get; set; }

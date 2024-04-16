@@ -13,8 +13,7 @@ builder.Services.AddFluentUIComponents();
 
 builder.Services.AddDbContext<EventPlannerDbContext>(options =>
 {
-    var connectionString = builder.Configuration.GetConnectionString("sqlite");
-    options.UseSqlite(connectionString);
+    options.UseSqlServer(builder.Configuration.GetConnectionString("EventPlannerDb"));
 });
 
 var app = builder.Build();

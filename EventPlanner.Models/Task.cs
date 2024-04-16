@@ -1,6 +1,9 @@
-﻿namespace EventPlanner.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace EventPlanner.Models
 {
-    public class Tasks
+    [Table("Tasks")]
+    public class Task
     {
         public int TaskId { get; set; }
         public int EventId { get; set; }
