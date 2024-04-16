@@ -1,7 +1,7 @@
-﻿@page "/create-event"
-@using EventPlanner.Models
+﻿@* @page "/create-event"
+@* @using EventPlanner.Models *@
 
-<h3>Create Event</h3>
+@* <h3>Create Event</h3>
 
 <EditForm Model="@eventModel" OnValidSubmit="@HandleValidSubmit">
     <DataAnnotationsValidator />
@@ -28,18 +28,18 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Create Event</button>
-</EditForm>
+</EditForm> *@
 
 @code {
-    private Event eventModel = new Event();
+    // private Event eventModel = new Event();
 
     private void HandleValidSubmit()
     {
         // For now, just print out the event details
-        Console.WriteLine($"Event Name: {eventModel.EventName}");
-        Console.WriteLine($"Event Date: {eventModel.EventDate}");
-        Console.WriteLine($"Venue ID: {eventModel.VenueId}");
-        Console.WriteLine($"Organizer ID: {eventModel.OrganizerId}");
+        // Console.WriteLine($"Event Name: {eventModel.EventName}");
+        // Console.WriteLine($"Event Date: {eventModel.EventDate}");
+        // Console.WriteLine($"Venue ID: {eventModel.VenueId}");
+        // Console.WriteLine($"Organizer ID: {eventModel.OrganizerId}");
 
         // Later, you will add database interaction code here
     }

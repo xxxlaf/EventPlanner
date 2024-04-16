@@ -2,10 +2,10 @@
 
 namespace EventPlanner.Models
 {
-    [Table("Tasks")]
-    public class Task
+    [Table("TaskItems")]
+    public class TaskItem
     {
-        public int TaskId { get; set; }
+        public int TaskItemId { get; set; }
         public int EventId { get; set; }
         public string? Description { get; set; }
         public DateTime Deadline { get; set; }
