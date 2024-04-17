@@ -6,5 +6,5 @@
   ```Install-Package Microsoft.AspNetCore.Authentication.JwtBearer```<br>
   ```Install-Package Newtonsoft.Json```<br>
 <br>
-### And, in the Package Manager Console, do (Default Project > EventPlanner:
+### And, in the Package Manager Console, do (Default Project > EventPlanner):
   ```Update-Database```
