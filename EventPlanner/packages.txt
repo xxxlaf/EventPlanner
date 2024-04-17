@@ -4,3 +4,10 @@ Install-Package Microsoft.EntityFrameworkCore.Relational
 Install-Package Microsoft.EntityFrameworkCore.Tools
 install-package Microsoft.AspNetCore.Authentication.JwtBearer
 install-package Newtonsoft.Json
+
+
+// Add a migration
+add-migration "<migration message>"
+
+// Update the database
+update-database
