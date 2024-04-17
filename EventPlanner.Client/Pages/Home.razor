@@ -1,4 +1,5 @@
 ﻿@page "/"
+@inject NavigationManager NavigationManager
 
 <PageTitle>Home</PageTitle>
 
@@ -10,7 +11,14 @@
             <FluentButton>Open</FluentButton>
             <FluentButton>Create</FluentButton>
             <FluentButton>Update</FluentButton>
-            <FluentButton>Delete</FluentButton>
+            <FluentButton @onclick="NavigateToDelete">Delete</FluentButton>
         </td>
     </tr>
 </table>
+
+@code {
+    private void NavigateToDelete()
+    {
+        NavigationManager.NavigateTo("/delete");
+    }
+}
