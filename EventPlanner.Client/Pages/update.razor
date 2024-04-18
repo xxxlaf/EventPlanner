@@ -1,8 +1,8 @@
 ﻿@page "/update/{eventId:int}"
-@using EventPlanner.Controllers;
+@using EventPlanner
 
 
-<h1>Edit Event</h1>
+<h1>update Event</h1>
 
 @if (currentEvent != null)
 {
@@ -22,24 +22,18 @@ else
 }
 
 @code {
-    Event currentEvent;
 
     [Parameter]
     public int EventId { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        currentEvent = await DbContext.Events.FindAsync(EventId);
+        
     }
 
     async Task UpdateEvent()
     {
-        if (currentEvent != null)
-        {
-            DbContext.Events.Update(currentEvent);
-            await DbContext.SaveChangesAsync();
-            NavigationManager.NavigateTo("/home");
-        }
+       
     }
 }
 
