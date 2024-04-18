@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EventPlanner.Models
 {
@@ -6,9 +8,11 @@ namespace EventPlanner.Models
     public class TaskItem
     {
         public int TaskItemId { get; set; }
+        [Required]
         public int EventId { get; set; }
         public string? Description { get; set; }
-        public DateTime Deadline { get; set; }
+        public DateOnly Deadline { get; set; }
         public bool Status { get; set; }
+        public virtual Event? Event { get; set; }
     }
 }
