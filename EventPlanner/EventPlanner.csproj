@@ -28,5 +28,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EventPlanner.Client\EventPlanner.Client.csproj" />
+    <ProjectReference Include="..\EventPlanner.Models\EventPlanner.Models.csproj" />
   </ItemGroup>
 </Project>
