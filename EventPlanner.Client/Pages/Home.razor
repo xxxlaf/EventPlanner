@@ -1,9 +1,20 @@
 ﻿@page "/"
+@inject HttpClient httpClient
 
 <PageTitle>Home</PageTitle>
 
 <h1>Event Planner</h1>
 
 @code {
+    private List<Event> events = new List<Event>();
 
+    protected override async Task OnInitializedAsync()
+    {
+        var response = await httpClient.GetAsync("/api/Event");
+
+        if(response.IsSuccessStatusCode)
+        {
+            events = await response.Content.ReadFromJsonAsync<List<Event>>();
+        }
+    }
 }

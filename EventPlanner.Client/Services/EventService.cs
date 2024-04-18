@@ -1,6 +1,4 @@
-﻿using System.Net.Http;
-using System.Net.Http.Json;
-using System.Threading.Tasks;
+﻿using System.Net.Http.Json;
 using EventPlanner.Models;
 
 namespace EventPlanner.Client.Services
@@ -16,7 +14,7 @@ namespace EventPlanner.Client.Services
 
         public async Task<List<Event>> GetEventsAsync()
         {
-            return await _httpClient.GetFromJsonAsync<List<Event>>("api/events")!;
+            return await _httpClient.GetFromJsonAsync<List<Event>>("api/events");
         }
     }
 }

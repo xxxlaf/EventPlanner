@@ -5,6 +5,7 @@
   ```Install-Package Microsoft.EntityFrameworkCore.Tools```<br>
   ```Install-Package Microsoft.AspNetCore.Authentication.JwtBearer```<br>
   ```Install-Package Newtonsoft.Json```<br>
+  ```Install-Package Microsoft.AspNetCore.OpenApi```<br>
 <br>
 ### And, in the Package Manager Console, do (Default Project > EventPlanner):
   ```Update-Database```

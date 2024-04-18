@@ -1,0 +1,9 @@
+﻿@EventPlanner_HostAddress = https://localhost:7276
+
+GET {{EventPlanner_HostAddress}}/api/Event/
+
+###
+
+GET {{EventPlanner_HostAddress}}/api/Event/{id}
+
+###
