@@ -6,15 +6,15 @@
 <h1>Event Planner</h1>
 
 @code {
-    private Event singleEvent = new Event();
+    private List<Event> events = new List<Event>();
 
     protected override async Task OnInitializedAsync()
     {
-        var response = await httpClient.GetAsync("/api/Event/{id}?eventid=1"); // Change the ID here
+        var response = await httpClient.GetAsync("/api/Event"); // Change the ID here
 
         if (response.IsSuccessStatusCode)
         {
-            singleEvent = await response.Content.ReadFromJsonAsync<Event>();
+            events = await response.Content.ReadFromJsonAsync<List<Event>>();
         }
     }
 }

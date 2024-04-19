@@ -59,5 +59,6 @@ app.MapRazorComponents<App>()
 app.MapControllers();
 
 app.MapEventEndpoints();
+app.MapAttendeeEndpoints();
 
 app.Run();
