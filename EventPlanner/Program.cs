@@ -62,5 +62,6 @@ app.MapEventEndpoints();
 app.MapAttendeeEndpoints();
 app.MapVenueEndpoints();
 app.MapOrganizerEndpoints();
+app.MapTaskItemEndpoints();
 
 app.Run();

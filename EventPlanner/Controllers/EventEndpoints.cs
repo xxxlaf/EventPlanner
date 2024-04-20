@@ -28,6 +28,20 @@ public static class EventEndpoints
         .WithName("GetEventById")
         .WithOpenApi();
 
+        group.MapGet("/{eventId}/TaskItems", async Task<Results<Ok<List<TaskItem>>, NotFound>> (int eventId, EventPlannerDbContext db) =>
+        {
+            var taskItems = await db.TaskItems
+                .Where(ti => ti.EventId == eventId)
+                .ToListAsync();
+
+            if (taskItems == null || taskItems.Count == 0)
+                return TypedResults.NotFound();
+
+            return TypedResults.Ok(taskItems);
+        })
+        .WithName("GetTaskItemsByEventId")
+        .WithOpenApi();
+
         group.MapPut("/{id}", async Task<Results<Ok<Event>, NotFound>> (int id, Event @event, EventPlannerDbContext db) =>
         {
             Event existingEvent = await db.Events.FindAsync(id);

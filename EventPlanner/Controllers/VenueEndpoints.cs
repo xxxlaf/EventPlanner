@@ -27,5 +27,14 @@ public static class VenueEndpoints
         })
         .WithName("GetVenueById")
         .WithOpenApi();
+
+        group.MapPost("/", async (Venue @venue, EventPlannerDbContext db) =>
+        {
+            db.Venues.Add(@venue);
+            await db.SaveChangesAsync();
+            return TypedResults.Created($"/api/Venue/{@venue.VenueId}", @venue);
+        })
+        .WithName("CreateVenue")
+        .WithOpenApi();
     }
 }

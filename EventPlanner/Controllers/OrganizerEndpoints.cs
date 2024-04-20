@@ -27,5 +27,14 @@ public static class OrganizerEndpoints
         })
         .WithName("GetOrganizerById")
         .WithOpenApi();
+
+        group.MapPost("/", async (Organizer @organizer, EventPlannerDbContext db) =>
+        {
+            db.Organizers.Add(@organizer);
+            await db.SaveChangesAsync();
+            return TypedResults.Created($"/api/Organizer/{@organizer.OrganizerId}", @organizer);
+        })
+        .WithName("CreateOrganizer")
+        .WithOpenApi();
     }
 }

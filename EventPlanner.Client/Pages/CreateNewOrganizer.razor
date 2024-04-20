@@ -1,0 +1,32 @@
+﻿@page "/createneworganizer"
+@inject NavigationManager navigation
+@inject HttpClient httpClient
+
+<h1>Create Organizer</h1>
+
+<EditForm Model="@newOrganizer" OnValidSubmit="CreateOrganizer">
+    <label>Organizer Name: </label>
+    <input type="text" @bind="newOrganizer.OrganizerName" /><br />
+    <label>Contact Info: </label>
+    <input type="text" @bind="newOrganizer.ContactInfo" /><br />
+    <label>Company Name: </label>
+    <input type="text" @bind="newOrganizer.CompanyName" /><br />
+    <button type="submit">Create</button>
+</EditForm>
+
+@code {
+    private Organizer newOrganizer = new Organizer();
+
+    private async Task CreateOrganizer()
+    {
+        var response = await httpClient.PostAsJsonAsync("/api/Organizer", newOrganizer);
+        if (response.IsSuccessStatusCode)
+        {
+            navigation.NavigateTo("/");
+        }
+        else
+        {
+            
+        }
+    }
+}
