@@ -2,6 +2,7 @@
 using EventPlanner.Database;
 using EventPlanner.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
+using System.Net.Http;
 namespace EventPlanner.Controllers;
 
 public static class EventEndpoints
@@ -69,10 +70,10 @@ public static class EventEndpoints
         .WithName("CreateEvent")
         .WithOpenApi();
 
-        group.MapDelete("/{id}", async Task<Results<Ok, NotFound>> (int eventid, EventPlannerDbContext db) =>
+        group.MapDelete("/{id}", async Task<Results<Ok, NotFound>> (int id, EventPlannerDbContext db) =>
         {
             var affected = await db.Events
-                .Where(model => model.EventId == eventid)
+                .Where(model => model.EventId == id)
                 .ExecuteDeleteAsync();
             return affected == 1 ? TypedResults.Ok() : TypedResults.NotFound();
         })

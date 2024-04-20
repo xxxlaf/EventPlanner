@@ -17,7 +17,7 @@
             <option value="@venue.VenueId">@venue.VenueName</option>
         }
     </select>
-    <a href="/createnewvenue">Create New Venue</a><br />
+    <FluentButton OnClick="NavigateToCreateNewVenue">Create New Venue</FluentButton><br/>
     <label>Organizer: </label>
     <select @bind="newEvent.OrganizerId">
         <option value="">-- Select Organizer --</option>
@@ -26,7 +26,7 @@
             <option value="@organizer.OrganizerId">@organizer.OrganizerName</option>
         }
     </select>
-    <a href="/createneworganizer">Create New Organizer</a><br />
+    <FluentButton OnClick="NavigateToCreateNewOrganizer">Create New Organizer</FluentButton><br/>
     <button type="submit">Create</button>
 </EditForm>
 
@@ -52,6 +52,16 @@
         {
             // Handle error
         }
+    }
+
+    private void NavigateToCreateNewVenue()
+    {
+        navigation.NavigateTo("/createnewvenue");
+    }
+
+    private void NavigateToCreateNewOrganizer()
+    {
+        navigation.NavigateTo("/createneworganizer");
     }
 }
 

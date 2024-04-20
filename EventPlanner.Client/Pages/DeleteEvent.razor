@@ -1,0 +1,37 @@
+﻿@page "/deleteevent/{EventId:int}"
+@inject NavigationManager navigation
+@inject HttpClient httpClient
+
+<h1>Delete Event</h1>
+
+<table>
+    <FluentButton OnClick=DeleteCurrentEvent>Yes</FluentButton>
+    <FluentButton OnClick=ReturnToHome>No</FluentButton>
+</table>
+
+@code {
+    [SupplyParameterFromForm]
+    private Event selectedEvent { get; set; } = new Event();
+
+    [Parameter]
+    public int EventId { get; set; }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        selectedEvent = await httpClient.GetFromJsonAsync<Event>($"api/Event/{EventId}");
+    }
+
+    private async Task DeleteCurrentEvent()
+    {
+        var response = await httpClient.DeleteAsync($"/api/Event/{EventId}");
+        if (response.IsSuccessStatusCode)
+        {
+            ReturnToHome();
+        }
+    }
+
+    private void ReturnToHome() 
+    {
+        navigation.NavigateTo("/");
+    }
+}

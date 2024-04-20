@@ -23,6 +23,7 @@
                     <td>@eventObj.EventDate</td>
                     <td><FluentButton @onclick="@(() => UpdateEvent(@eventObj))">Update</FluentButton></td>
                     <td><FluentButton @onclick="@(() => ManageTaskItems(@eventObj))">Manage Task Items</FluentButton></td>
+                    <td><FluentButton @onclick="@(() => DeleteEvent(@eventObj))">Delete Event</FluentButton></td>
                 </tr>
             }
         </tbody>
@@ -54,6 +55,12 @@ else
     {
         selectedEvent = @event;
         navigation.NavigateTo($"/managetaskitems/{@event.EventId}");
+    }
+
+    private void DeleteEvent(Event @event)
+    {
+        selectedEvent = @event;
+        navigation.NavigateTo($"/deleteevent/{@event.EventId}");
     }
 }
 
