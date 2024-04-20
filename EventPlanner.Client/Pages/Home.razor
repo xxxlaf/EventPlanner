@@ -7,38 +7,53 @@
 
 @if (events.Count > 0)
 {
-    <table>
-        <thead>
-            <tr>
-                <th>Event Name</th>
-                <th>Event Date</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var @eventObj in events)
-            {
-                <tr>
-                    <td>@eventObj.EventName</td>
-                    <td>@eventObj.EventDate</td>
-                    <td><FluentButton @onclick="@(() => UpdateEvent(@eventObj))">Update</FluentButton></td>
-                    <td><FluentButton @onclick="@(() => ManageTaskItems(@eventObj))">Manage Task Items</FluentButton></td>
-                    <td><FluentButton @onclick="@(() => DeleteEvent(@eventObj))">Delete Event</FluentButton></td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <div class="card-container">
+        @foreach (var @eventObj in events)
+        {
+            <div class="card">
+                <h3>@eventObj.EventName</h3>
+                <p>@eventObj.Venue!.Location</p>
+                <p>Date: @eventObj.EventDate</p>
+                <div class="button-container">
+                    <FluentButton @onclick="@(() => UpdateEvent(@eventObj))">Update</FluentButton>
+                    <FluentButton @onclick="@(() => ManageTaskItems(@eventObj))">Manage Task Items</FluentButton>
+                    <FluentButton @onclick="@(() => DeleteEvent(@eventObj))">Delete Event</FluentButton>
+                </div>
+            </div>
+        }
+    </div>
 }
 else
 {
     <p>No events found!</p>
 }
 
+<style>
+    .card-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
+
+    .card {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+        width: 300px;
+        background-color: #f9f9f9;
+    }
+
+    .button-container {
+        margin-top: 10px;
+    }
+
+        .button-container button {
+            margin-right: 10px;
+        }
+</style>
+
 @code {
     private List<Event> events = new List<Event>();
-
-    [SupplyParameterFromForm]
-    private Event selectedEvent { get; set; } = new Event();
 
     protected override async Task OnInitializedAsync()
     {
@@ -47,20 +62,16 @@ else
 
     private void UpdateEvent(Event @event)
     {
-        selectedEvent = @event;
         navigation.NavigateTo($"/update/{@event.EventId}");
     }
 
     private void ManageTaskItems(Event @event)
     {
-        selectedEvent = @event;
         navigation.NavigateTo($"/managetaskitems/{@event.EventId}");
     }
 
     private void DeleteEvent(Event @event)
     {
-        selectedEvent = @event;
         navigation.NavigateTo($"/deleteevent/{@event.EventId}");
     }
 }
-

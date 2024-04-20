@@ -9,9 +9,23 @@
 {
     <EditForm Model="selectedEvent" OnValidSubmit="PostEvent">
         <label>Event Name: </label>
-        <input type="text" @bind="selectedEvent.EventName" /><br />
+        <input type="text" @bind="selectedEvent.EventName" /><br/>
         <label>Event Date: </label>
-        <input type="date" @bind="selectedEvent.EventDate" /><br />
+        <input type="date" @bind="selectedEvent.EventDate" /><br/>
+        <label>Venue: </label>
+        <select @bind="selectedEvent.VenueId">
+            @foreach (var venue in venues)
+            {
+                <option value="@venue.VenueId">@venue.VenueName</option>
+            }
+        </select><br />
+        <label>Organizer: </label>
+        <select @bind="selectedEvent.OrganizerId">
+            @foreach (var organizer in organizers)
+            {
+                <option value="@organizer.OrganizerId">@organizer.OrganizerName</option>
+            }
+        </select><br />
         <button type="submit">Save</button>
     </EditForm>
 }
@@ -21,6 +35,9 @@ else
 }
 
 @code {
+    private List<Venue> venues = new List<Venue>();
+    private List<Organizer> organizers = new List<Organizer>();
+
     [SupplyParameterFromForm]
     private Event selectedEvent { get; set; } = new Event();
 
@@ -30,6 +47,8 @@ else
     protected override async Task OnInitializedAsync()
     {
         selectedEvent = await httpClient.GetFromJsonAsync<Event>($"api/Event/{EventId}");
+        venues = await httpClient.GetFromJsonAsync<List<Venue>>($"api/Venue");
+        organizers = await httpClient.GetFromJsonAsync<List<Organizer>>($"api/Organizer");
     }
 
     private async Task PostEvent()
