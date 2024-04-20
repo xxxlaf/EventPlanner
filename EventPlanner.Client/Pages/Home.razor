@@ -1,20 +1,43 @@
 ﻿@page "/"
-@inject HttpClient httpClient
-
-<PageTitle>Home</PageTitle>
-
+@inject EventService eventService
+@inject NavigationManager NavigationManager
+@using EventPlanner.Models;
 <h1>Event Planner</h1>
+
+@if (events.Count > 0)
+{
+    <table>
+        <tr>
+            <th>Event Name</th>
+            <th>Event Date</th>
+            <th></th>
+        </tr>
+        @foreach (var @event in events)
+        {
+            <tr>
+                <td>@@event.EventName</td> 
+                <td>@@event.EventDate.ToString("MM/dd/yyyy")</td>
+                <button @onclick="@( () => UpdateEvent(@event.EventId) )">Update</button>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <p>No events found!</p>
+}
 
 @code {
     private List<Event> events = new List<Event>();
 
     protected override async Task OnInitializedAsync()
     {
-        var response = await httpClient.GetAsync("/api/Event"); // Change the ID here
+        events = await eventService.GetEventsAsync();
+    }
 
-        if (response.IsSuccessStatusCode)
-        {
-            events = await response.Content.ReadFromJsonAsync<List<Event>>();
-        }
+    private void UpdateEvent(int eventId)
+    {
+        NavigationManager.NavigateTo($"/update/{eventId}");
     }
 }
+
