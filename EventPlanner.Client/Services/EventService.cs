@@ -14,9 +14,7 @@ namespace EventPlanner.Client.Services
 
         public async Task<List<Event>> GetEventsAsync()
         {
-            return await _httpClient.GetFromJsonAsync<List<Event>>("api/events");
+            return await _httpClient.GetFromJsonAsync<List<Event>>("api/Events");
         }
-
-        
     }
 }

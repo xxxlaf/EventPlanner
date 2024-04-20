@@ -1,38 +1,10 @@
 ﻿@page "/update/{eventId:int}"
 @using EventPlanner
-@inject EventService eventService
 @inject NavigationManager navigation
 
 <h1>Update Event</h1>
 
-@if (currentEvent != null)
-{
-    <form @onsubmit="UpdateEvent">
-        <label>Name:</label>
-        <label>Event Date:</label>
-        <button type="submit">Save</button>
-    </form>
-}
-else
-{
-    <p>Event not found!</p>
-}
-
 @code {
 
-    [Parameter]
-    public int EventId { get; set; }
-
-    private Event currentEvent;
-
-    protected override async Task OnInitializedAsync()
-    {
-       // currentEvent = await eventService.GetEventById(EventId);
-    }
-
-    async Task UpdateEvent()
-    {
-       // await eventService.UpdateEventAsync(currentEvent);
-        navigation.NavigateTo("/");
-    }
+    
 }

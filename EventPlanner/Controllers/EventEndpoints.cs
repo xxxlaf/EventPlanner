@@ -2,7 +2,6 @@
 using EventPlanner.Database;
 using EventPlanner.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.OpenApi;
 namespace EventPlanner.Controllers;
 
 public static class EventEndpoints
