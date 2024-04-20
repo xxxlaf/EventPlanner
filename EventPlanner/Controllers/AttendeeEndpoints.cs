@@ -2,7 +2,7 @@
 using EventPlanner.Database;
 using EventPlanner.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.OpenApi;
+using Microsoft.Identity.Client;
 namespace EventPlanner.Controllers;
 
 public static class AttendeeEndpoints
@@ -18,10 +18,10 @@ public static class AttendeeEndpoints
         .WithName("GetAllAttendees")
         .WithOpenApi();
 
-        group.MapGet("/{id}", async Task<Results<Ok<Attendee>, NotFound>> (int attendeeid, EventPlannerDbContext db) =>
+        group.MapGet("/{id}", async Task<Results<Ok<Attendee>, NotFound>> (int id, EventPlannerDbContext db) =>
         {
             return await db.Attendees.AsNoTracking()
-                .FirstOrDefaultAsync(model => model.AttendeeId == attendeeid)
+                .FirstOrDefaultAsync(model => model.AttendeeId == id)
                 is Attendee model
                     ? TypedResults.Ok(model)
                     : TypedResults.NotFound();
@@ -29,18 +29,21 @@ public static class AttendeeEndpoints
         .WithName("GetAttendeeById")
         .WithOpenApi();
 
-        group.MapPut("/{id}", async Task<Results<Ok, NotFound>> (int attendeeid, Attendee @attendee, EventPlannerDbContext db) =>
+        group.MapPut("/{id}", async Task<Results<Ok<Attendee>, NotFound>> (int id, Attendee @attendee, EventPlannerDbContext db) =>
         {
-            var affected = await db.Attendees
-                .Where(model => model.AttendeeId == attendeeid)
-                .ExecuteUpdateAsync(setters => setters
-                    .SetProperty(m => m.AttendeeId, @attendee.AttendeeId)
-                    .SetProperty(m => m.EventId, @attendee.EventId)
-                    .SetProperty(m => m.Name, @attendee.Name)
-                    .SetProperty(m => m.Email, @attendee.Email)
-                    .SetProperty(m => m.Phone, @attendee.Phone)
-                    );
-            return affected == 1 ? TypedResults.Ok() : TypedResults.NotFound();
+            Attendee existingAttendee = await db.Attendees.FindAsync(id);
+
+            if (existingAttendee is null)
+            {
+                return TypedResults.NotFound();
+            }
+
+            existingAttendee.Name = @attendee.Name;
+            existingAttendee.Email = @attendee.Email;
+            existingAttendee.Phone = @attendee.Phone;
+
+            db.SaveChanges();
+            return TypedResults.Ok(existingAttendee);
         })
         .WithName("UpdateAttendee")
         .WithOpenApi();
@@ -49,19 +52,9 @@ public static class AttendeeEndpoints
         {
             db.Attendees.Add(@attendee);
             await db.SaveChangesAsync();
-            return TypedResults.Created($"/api/Event/{@attendee.EventId}", @attendee);
+            return TypedResults.Created($"/api/Attendee/{@attendee.AttendeeId}", @attendee);
         })
         .WithName("CreateAttendee")
-        .WithOpenApi();
-
-        group.MapDelete("/{id}", async Task<Results<Ok, NotFound>> (int attendeeid, EventPlannerDbContext db) =>
-        {
-            var affected = await db.Attendees
-                .Where(model => model.AttendeeId == attendeeid)
-                .ExecuteDeleteAsync();
-            return affected == 1 ? TypedResults.Ok() : TypedResults.NotFound();
-        })
-        .WithName("DeleteAttendee")
         .WithOpenApi();
     }
 }
