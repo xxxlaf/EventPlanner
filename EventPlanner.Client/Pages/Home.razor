@@ -19,7 +19,7 @@
                 <tr>
                     <td>@eventObj.EventName</td>
                     <td>@eventObj.EventDate</td>
-                    <td><FluentButton>Update</FluentButton></td>
+                    <td><FluentButton @onclick="@(() => EditEvent(@eventObj))">Update</FluentButton></td>
                 </tr>
             }
         </tbody>
@@ -30,13 +30,44 @@ else
     <p>No events found!</p>
 }
 
+@if (selectedEvent != null)
+{
+    <h2>Update Event</h2>
+    <EditForm Model="selectedEvent" OnValidSubmit="PostEvent">
+        <label>Event Name: </label>
+        <input type="text" @bind="selectedEvent.EventName" /><br />
+        <label>Event Date: </label>
+        <input type="date" @bind="selectedEvent.EventDate" /><br />
+        <button type="submit">Save</button>
+    </EditForm>
+}
+
+
+
 @code {
     private List<Event> events = new List<Event>();
-    private Event selectedEvent = new Event();
+
+    [SupplyParameterFromForm]
+    private Event selectedEvent { get; set; } = new Event();
 
     protected override async Task OnInitializedAsync()
     {
         events = await httpClient.GetFromJsonAsync<List<Event>>("api/Event");
+    }
+
+    private void EditEvent(Event @event)
+    {
+        selectedEvent = @event;
+    }
+
+    private async Task PostEvent()
+    {
+        var response = await httpClient.PutAsJsonAsync($"/api/Event/{selectedEvent.EventId}", selectedEvent);
+        if (response.IsSuccessStatusCode)
+        {
+            events = await httpClient.GetFromJsonAsync<List<Event>>($"api/Event");
+            selectedEvent = new();
+        }
     }
 }
 

@@ -28,18 +28,20 @@ public static class EventEndpoints
         .WithName("GetEventById")
         .WithOpenApi();
 
-        group.MapPut("/{id}", async Task<Results<Ok, NotFound>> (int eventid, Event @event, EventPlannerDbContext db) =>
+        group.MapPut("/{id}", async Task<Results<Ok<Event>, NotFound>> (int id, Event @event, EventPlannerDbContext db) =>
         {
-            var affected = await db.Events
-                .Where(model => model.EventId == eventid)
-                .ExecuteUpdateAsync(setters => setters
-                    .SetProperty(m => m.EventId, @event.EventId)
-                    .SetProperty(m => m.VenueId, @event.VenueId)
-                    .SetProperty(m => m.OrganizerId, @event.OrganizerId)
-                    .SetProperty(m => m.EventName, @event.EventName)
-                    .SetProperty(m => m.EventDate, @event.EventDate)
-                    );
-            return affected == 1 ? TypedResults.Ok() : TypedResults.NotFound();
+            Event existingEvent = await db.Events.FindAsync(id);
+
+            if (existingEvent is null)
+            {
+                return TypedResults.NotFound();
+            }
+
+            existingEvent.EventName = @event.EventName;
+            existingEvent.EventDate = @event.EventDate;
+
+            db.SaveChanges();
+            return TypedResults.Ok(existingEvent);
         })
         .WithName("UpdateEvent")
         .WithOpenApi();
