@@ -1,10 +1,55 @@
 ﻿@page "/create"
-@using EventPlanner
+@using EventPlanner.Models
 @inject NavigationManager navigation
+@inject HttpClient httpClient
 
 <h1>Create Event</h1>
 
+<EditForm Model="@newEvent" OnValidSubmit="CreateEvent">
+    <label>Event Name: </label>
+    <input type="text" @bind="newEvent.EventName" /><br />
+    <label>Event Date: </label>
+    <input type="date" @bind="newEvent.EventDate" /><br />
+    <label>Venue: </label>
+    <select @bind="newEvent.VenueId">
+        <option value="">Select Venue</option>
+        @foreach (var venue in venues)
+        {
+            <option value="@venue.VenueId">@venue.VenueName</option>
+        }
+    </select><br />
+    <label>Organizer: </label>
+    <select @bind="newEvent.OrganizerId">
+        <option value="">Select Organizer</option>
+        @foreach (var organizer in organizers)
+        {
+            <option value="@organizer.OrganizerId">@organizer.OrganizerName</option>
+        }
+    </select><br />
+    <button type="submit">Create</button>
+</EditForm>
+
 @code {
+    private Event newEvent = new Event();
+    private List<Venue> venues = new List<Venue>();
+    private List<Organizer> organizers = new List<Organizer>();
 
+    protected override async Task OnInitializedAsync()
+    {
+        venues = await httpClient.GetFromJsonAsync<List<Venue>>("/api/Venue");
+        organizers = await httpClient.GetFromJsonAsync<List<Organizer>>("/api/Organizer");
+    }
 
+    private async Task CreateEvent()
+    {
+        var response = await httpClient.PostAsJsonAsync("/api/Event", newEvent);
+        if (response.IsSuccessStatusCode)
+        {
+            navigation.NavigateTo("/");
+        }
+        else
+        {
+            
+        }
+    }
 }

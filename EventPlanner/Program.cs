@@ -60,5 +60,7 @@ app.MapControllers();
 
 app.MapEventEndpoints();
 app.MapAttendeeEndpoints();
+app.MapVenueEndpoints();
+app.MapOrganizerEndpoints();
 
 app.Run();

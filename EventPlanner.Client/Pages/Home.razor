@@ -1,6 +1,8 @@
 ﻿@page "/"
 @using EventPlanner.Models
 @inject HttpClient httpClient
+@inject NavigationManager navigation
+
 <h1>Event Planner</h1>
 
 @if (events.Count > 0)
@@ -19,7 +21,7 @@
                 <tr>
                     <td>@eventObj.EventName</td>
                     <td>@eventObj.EventDate</td>
-                    <td><FluentButton @onclick="@(() => EditEvent(@eventObj))">Update</FluentButton></td>
+                    <td><FluentButton @onclick="@(() => UpdateEvent(@eventObj))">Update</FluentButton></td>
                 </tr>
             }
         </tbody>
@@ -29,20 +31,6 @@ else
 {
     <p>No events found!</p>
 }
-
-@if (selectedEvent != null)
-{
-    <h2>Update Event</h2>
-    <EditForm Model="selectedEvent" OnValidSubmit="PostEvent">
-        <label>Event Name: </label>
-        <input type="text" @bind="selectedEvent.EventName" /><br />
-        <label>Event Date: </label>
-        <input type="date" @bind="selectedEvent.EventDate" /><br />
-        <button type="submit">Save</button>
-    </EditForm>
-}
-
-
 
 @code {
     private List<Event> events = new List<Event>();
@@ -55,19 +43,10 @@ else
         events = await httpClient.GetFromJsonAsync<List<Event>>("api/Event");
     }
 
-    private void EditEvent(Event @event)
+    private void UpdateEvent(Event @event)
     {
         selectedEvent = @event;
-    }
-
-    private async Task PostEvent()
-    {
-        var response = await httpClient.PutAsJsonAsync($"/api/Event/{selectedEvent.EventId}", selectedEvent);
-        if (response.IsSuccessStatusCode)
-        {
-            events = await httpClient.GetFromJsonAsync<List<Event>>($"api/Event");
-            selectedEvent = new();
-        }
+        navigation.NavigateTo($"/update/{@event.EventId}");
     }
 }
 

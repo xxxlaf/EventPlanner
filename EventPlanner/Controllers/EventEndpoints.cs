@@ -17,10 +17,10 @@ public static class EventEndpoints
         .WithName("GetAllEvents")
         .WithOpenApi();
 
-        group.MapGet("/{id}", async Task<Results<Ok<Event>, NotFound>> (int eventid, EventPlannerDbContext db) =>
+        group.MapGet("/{id}", async Task<Results<Ok<Event>, NotFound>> (int id, EventPlannerDbContext db) =>
         {
             return await db.Events.AsNoTracking()
-                .FirstOrDefaultAsync(model => model.EventId == eventid)
+                .FirstOrDefaultAsync(model => model.EventId == id)
                 is Event model
                     ? TypedResults.Ok(model)
                     : TypedResults.NotFound();

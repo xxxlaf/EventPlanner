@@ -1,10 +1,43 @@
-﻿@page "/update/{eventId:int}"
-@using EventPlanner
+﻿@page "/update/{EventId:int}"
+@using EventPlanner.Models
+@inject HttpClient httpClient
 @inject NavigationManager navigation
 
 <h1>Update Event</h1>
 
-@code {
+@if (selectedEvent != null)
+{
+    <EditForm Model="selectedEvent" OnValidSubmit="PostEvent">
+        <label>Event Name: </label>
+        <input type="text" @bind="selectedEvent.EventName" /><br />
+        <label>Event Date: </label>
+        <input type="date" @bind="selectedEvent.EventDate" /><br />
+        <button type="submit">Save</button>
+    </EditForm>
+}
+else
+{
+    <p>Loading...</p>
+}
 
-    
+@code {
+    [SupplyParameterFromForm]
+    private Event selectedEvent { get; set; } = new Event();
+
+    [Parameter]
+    public int EventId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        selectedEvent = await httpClient.GetFromJsonAsync<Event>($"api/Event/{EventId}");
+    }
+
+    private async Task PostEvent()
+    {
+        var response = await httpClient.PutAsJsonAsync($"/api/Event/{selectedEvent.EventId}", selectedEvent);
+        if (response.IsSuccessStatusCode)
+        {
+            navigation.NavigateTo($"/");
+        }
+    }
 }
