@@ -4,6 +4,10 @@ GET {{EventPlanner_HostAddress}}/api/Event/
 
 ###
 
+GET {{EventPlanner_HostAddress}}/api/Event/1/
+
+###
+
 GET {{EventPlanner_HostAddress}}/api/Event/{id}
 
 ###
