@@ -2,7 +2,8 @@
 @inject NavigationManager navigation
 @inject HttpClient httpClient
 
-<h1>Delete Event</h1>
+<h1>Are you sure you wish to delete this event?</h1>
+<h4>@selectedEvent.EventName</h4>
 
 <table>
     <FluentButton OnClick=DeleteCurrentEvent>Yes</FluentButton>
