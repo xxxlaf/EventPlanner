@@ -16,7 +16,7 @@ Before you begin working on the project, make sure you have the following packag
 - Microsoft.EntityFrameworkCore.Proxies
 
 You can install these packages using the Package Manager Console with the following commands:
-
+#packages
 -Install-Package Microsoft.EntityFrameworkCore
 -Install-Package Microsoft.EntityFrameworkCore.SqlServer
 -Install-Package Microsoft.EntityFrameworkCore.Relational
