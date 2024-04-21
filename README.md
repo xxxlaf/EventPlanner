@@ -29,7 +29,8 @@ You can install these packages using the Package Manager Console with the follow
 Additionally, ensure that you have the necessary environment set up for Blazor .NET development and SQL Server. 
 
 ## Database Migration
-After installing the required packages, run the following command in the Package Manager Console: Update-Database
+After installing the required packages, run the following command in the Package Manager Console:
+- ## Update-Database
 
 Make sure to set the Default Project to 'EventPlanner' before executing this command.
 
