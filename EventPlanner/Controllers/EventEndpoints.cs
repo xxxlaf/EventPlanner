@@ -43,6 +43,20 @@ public static class EventEndpoints
         .WithName("GetTaskItemsByEventId")
         .WithOpenApi();
 
+        group.MapGet("/{eventId}/Attendees", async Task<Results<Ok<List<Attendee>>, NotFound>> (int eventId, EventPlannerDbContext db) =>
+        {
+            var attendees = await db.Attendees
+                .Where(a => a.EventId == eventId)
+                .ToListAsync();
+
+            if (attendees == null || attendees.Count == 0)
+                return TypedResults.NotFound();
+
+            return TypedResults.Ok(attendees);
+        })
+        .WithName("GetAttendeesByEventId")
+        .WithOpenApi();
+
         group.MapPut("/{id}", async Task<Results<Ok<Event>, NotFound>> (int id, Event @event, EventPlannerDbContext db) =>
         {
             Event existingEvent = await db.Events.FindAsync(id);

@@ -13,11 +13,12 @@
             <div class="card">
                 <h3>@eventObj.EventName</h3>
                 <p>@eventObj.Venue!.Location</p>
-                <p>Date: @eventObj.EventDate</p>
+                <p>@eventObj.EventDate</p>
                 <div class="button-container">
-                    <FluentButton @onclick="@(() => UpdateEvent(@eventObj))">Update</FluentButton>
-                    <FluentButton @onclick="@(() => ManageTaskItems(@eventObj))">Manage Task Items</FluentButton>
-                    <FluentButton @onclick="@(() => DeleteEvent(@eventObj))">Delete Event</FluentButton>
+                    <FluentButton @onclick="@(() => UpdateEvent(@eventObj))">Update</FluentButton><br />
+                    <FluentButton @onclick="@(() => ManageTaskItems(@eventObj))">Manage Task Items</FluentButton><br />
+                    <FluentButton @onclick="@(() => ManageAttendees(@eventObj))">Manage Attendees</FluentButton><br />
+                    <FluentButton @onclick="@(() => DeleteEvent(@eventObj))">Delete Event</FluentButton><br />
                 </div>
             </div>
         }
@@ -68,6 +69,11 @@ else
     private void ManageTaskItems(Event @event)
     {
         navigation.NavigateTo($"/managetaskitems/{@event.EventId}");
+    }
+
+    private void ManageAttendees(Event @event)
+    {
+        navigation.NavigateTo($"/manageattendees/{@event.EventId}");
     }
 
     private void DeleteEvent(Event @event)

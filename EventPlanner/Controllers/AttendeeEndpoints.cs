@@ -56,5 +56,15 @@ public static class AttendeeEndpoints
         })
         .WithName("CreateAttendee")
         .WithOpenApi();
+
+        group.MapDelete("/{id}", async Task<Results<Ok, NotFound>> (int id, EventPlannerDbContext db) =>
+        {
+            var affected = await db.Attendees
+                .Where(model => model.AttendeeId == id)
+                .ExecuteDeleteAsync();
+            return affected == 1 ? TypedResults.Ok() : TypedResults.NotFound();
+        })
+        .WithName("DeleteAttendee")
+        .WithOpenApi();
     }
 }
